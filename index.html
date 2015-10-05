@@ -6,35 +6,72 @@
   #chat{
     height:500px;
   }
+
+  #content-wrap{
+    display:none;
+  }
+
+  #chat-wrap{
+    float:left;
+    border:1px solid black;
+  }
   </style>
 </head>
-
   <body>
-    <div id="chat"></div>
-      <form id="send-message">
-        <input type="text" size="50" id="message">
+    <div id="username">
+      <p>Enter a username</p>
+      <form id="create-name">
+        <input type="text" size="50">
         <input type="submit">
       </form>
-      <script src="http://code.jquery.com/jquery-2.1.4.min.js"</script>
-      <script src="/socket.io/socket.io.js"></script>
+    </div>
+
+    <div id="content-wrap">
+      <div id="chat-wrap">
+        <div id="chat"></div>
+          <form id="send-message">
+            <input type="text" size="50" id="message">
+            <input type="submit">
+          </form>
+      </div>
+    </div>
+
+      <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+       <script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
       <script>
-        jQuery(function($){
           var socket = io.connect();
-          var $messageForm =$('#send-message');
-          var $chat =$('message');
+          var $messageForm = $('#send-message');
+          var $messageBox = $('#message');
+          var $chat = $('#chat');
+          var $userNameForm = $('#create-name');
+          var $userName = $('#username');
 
           $messageForm.on('submit',function(e){
             e.preventDefault();
+            socket.emit('send message',$messageBox.val());
+            $messageBox.val("");
+          });
 
+          $userNameForm.on('submit',function(e){
+            e.preventDefault();
+            socket.emit('user-name',$userName.val())
+              $userNameForm.hide();
+              $('#content-wrap').show();
+          })
+
+          socket.on('new message',function(data){
+            $chat.append(data + '<br></br>');
+          });
+
+          socket.on('new-user',function(msg){
+            $chat.append(msg + '<br></br>');
+          })
+
+           socket.on('leave-chat',function(msg){
+            $chat.append(msg + '<br></br>');
           })
 
 
-
-
-        });
-
-
       </script>
-
   </body>
 </html>
