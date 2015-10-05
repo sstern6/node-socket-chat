@@ -1,0 +1,40 @@
+<docktype! html>
+<html>
+<head>
+  <title>Node / Express / Socket.io Chat App</title>
+  <style>
+  #chat{
+    height:500px;
+  }
+  </style>
+</head>
+
+  <body>
+    <div id="chat"></div>
+      <form id="send-message">
+        <input type="text" size="50" id="message">
+        <input type="submit">
+      </form>
+      <script src="http://code.jquery.com/jquery-2.1.4.min.js"</script>
+      <script src="/socket.io/socket.io.js"></script>
+      <script>
+        jQuery(function($){
+          var socket = io.connect();
+          var $messageForm =$('#send-message');
+          var $chat =$('message');
+
+          $messageForm.on('submit',function(e){
+            e.preventDefault();
+
+          })
+
+
+
+
+        });
+
+
+      </script>
+
+  </body>
+</html>
