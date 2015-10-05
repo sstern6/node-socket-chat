@@ -16,20 +16,20 @@ io.sockets.on('connection',function(socket){
   io.emit('new-user',"A new user has joined the chat");
 
   socket.on('user-name',function(name){
-    console.log(name)
-    // socket.username = name;
+    socket.username = name;
 
-    // userNames.push(socket.username);
+    userNames.push(socket.username);
     io.sockets.emit('usernames',userNames);
-    // console.log(userNames);
   });
 
   socket.on('send message',function(data){
-    io.sockets.emit('new message',data)
+    io.sockets.emit('new message',data);
   });
 
   socket.on('disconnect',function(socket){
     io.emit("leave-chat","A user has left the chatroom");
+    userNames.splice(userNames.indexOf(socket.username),1)
+    io.emit('usernames',userNames);
   });
 
 });
