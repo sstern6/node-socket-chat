@@ -52,7 +52,7 @@ app.post('/',function(request,response){
 });
 
 app.get('/chatroom/:name',function(req,res){
-  res.render('index');
+  res.render('index',{chatRoomName:req.params.name});
   // console.log(req.params.name)
 });
 
