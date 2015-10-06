@@ -23,8 +23,13 @@ io.sockets.on('connection',function(socket){
   });
 
   socket.on('send message',function(data){
-    io.sockets.emit('new message',data);
+    io.sockets.emit('new message',{msg: data, name: socket.username});
   });
+
+  socket.on('user-typing',function(typing){
+    socket.broadcast.emit('typing',typing)
+  });
+
 
   socket.on('disconnect',function(socket){
     io.emit("leave-chat","A user has left the chatroom");
