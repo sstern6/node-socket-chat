@@ -38,6 +38,7 @@
     </div>
 
     <div id="typing"></div>
+    <div id="users-title">Users:</strong>
     <div id="users"></div>
 
 
@@ -51,6 +52,8 @@
           var $userNameForm = $('#create-name');
           var $userName = $('#username');
 
+          $('#users-title').hide();
+
           $messageForm.on('submit',function(e){
             e.preventDefault();
             socket.emit('send message',$messageBox.val());
@@ -62,6 +65,7 @@
             socket.emit('user-name',$('#name').val())
               $userName.hide();
               $('#content-wrap').show();
+              $('#users-title').show();
           })
 
           socket.on('usernames',function(userNames){
