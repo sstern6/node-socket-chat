@@ -1,15 +1,65 @@
 var express = require('express');
 var app = express();
+var path = require('path');
 var server = require('http').createServer(app);
+var mongoose = require('mongoose');
 var io = require('socket.io').listen(server);
+var bodyParser = require('body-parser');
+var router = express.Router();
 var userNames = [];
+
+app.set('views', path.join(__dirname,'views'));
+app.set('view engine', 'ejs');
+
+// Mongoose DB creation
+
+mongoose.connect('mongodb://localhost/chat',function(err){
+  if(err){
+    console.log(err);
+  }else{
+    console.log('Connect to DB');
+  }
+});
+
+// Mongo Schema
+
+var chatRoomSchema = mongoose.Schema({
+  chatroom: String,
+  create:{type: Date, default: Date.now}
+});
+
+// MODEL
+
+var chatRoom = mongoose.model('Message',chatRoomSchema)
+
+// ROUTES
+
+app.use(bodyParser());
+
+app.get('/',function(request,response){
+  // response.sendFile(__dirname + '/homepage.html');
+  response.render('homepage')
+
+})
+
+app.post('/',function(request,response){
+  var newRoom = new chatRoom({chatroom: request.body.roomName});
+
+  newRoom.save();
+  // console.log(newRoom)
+  // console.log(newRoom);
+  response.redirect('/chatroom/'+newRoom.chatroom)
+});
+
+app.get('/chatroom/:name',function(req,res){
+  res.render('index');
+  // console.log(req.params.name)
+});
+
 
 server.listen(3000);
 
-app.get('/',function(request,response){
-
-  response.sendFile(__dirname + '/index.html');
-})
+// SOCKETS
 
 io.sockets.on('connection',function(socket){
 
@@ -23,6 +73,8 @@ io.sockets.on('connection',function(socket){
   });
 
   socket.on('send message',function(data){
+    // var newMsg = new Chat({msg: data, username:socket.username});
+    // newMsg.save
     io.sockets.emit('new message',{msg: data, name: socket.username});
   });
 
