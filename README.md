@@ -31,3 +31,9 @@ If you would like to run this program, feel free to clone it onto your computer.
 
 ##Resources
 
+[Socket.io Chat](http://socket.io/get-started/chat/)
+[Node Express and Mongo Tutorial](http://cwbuecheler.com/web/tutorials/2013/node-express-mongo/)
+[Node and Socket.io tutorial](https://www.youtube.com/playlist?list=PLicY6aYZ8ilpmHfJ8jP1lt7ihPpRWBJ9P)
+[Treehouse Node Basics](http://teamtreehouse.com/library/nodejs-basics)
+
+
