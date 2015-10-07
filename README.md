@@ -8,7 +8,7 @@ You will need two terminal windows open at one time to run the application succe
 
 -First run "$ npm install" to download all of the dependencies I have provided in the package.json file
 
--First in the terminal window from root:
+-Then in the first terminal window from root:
   <code>$ mongod</code>
 
 -Second in the terminal window:
@@ -30,9 +30,9 @@ If you would like to run this program, feel free to clone it onto your computer.
 
 ##Resources
 
-+[Socket.io Chat](http://socket.io/get-started/chat/)
-+[Node, Express, and Mongo Tutorial](http://cwbuecheler.com/web/tutorials/2013/node-express-mongo/)
-+[Node and Socket.io tutorial](https://www.youtube.com/playlist?list=PLicY6aYZ8ilpmHfJ8jP1lt7ihPpRWBJ9P)
-+[Treehouse Node Basics](http://teamtreehouse.com/library/nodejs-basics)
++ [Socket.io Chat](http://socket.io/get-started/chat/)
++ [Node, Express, and Mongo Tutorial](http://cwbuecheler.com/web/tutorials/2013/node-express-mongo/)
++ [Node and Socket.io tutorial](https://www.youtube.com/playlist?list=PLicY6aYZ8ilpmHfJ8jP1lt7ihPpRWBJ9P)
++ [Treehouse Node Basics](http://teamtreehouse.com/library/nodejs-basics)
 
 
