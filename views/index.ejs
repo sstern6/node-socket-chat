@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+  <title>Node / Express / Socket.io Chat App</title>
+  <style>
+  #chat{
+    height:500px;
+  }
+
+  #content-wrap{
+    display:none;
+  }
+
+  #chat-wrap{
+    float:left;
+    border:1px solid black;
+  }
+  </style>
+</head>
+  <body>
+    <div id="username">
+      <p>Enter a username</p>
+      <form id="create-name">
+        <input type="text" size="50" id="name">
+        <input type="submit">
+      </form>
+    </div>
+
+    <div id="content-wrap">
+      <h1><%= chatRoomName %>'s Chat Room</h1>
+      <div id="chat-wrap">
+        <div id="chat"></div>
+          <form id="send-message">
+            <input type="text" size="50" id="message">
+            <input type="submit">
+          </form>
+      </div>
+    </div>
+
+    <div id="typing"></div>
+    <div id="users-title">Users:</strong>
+    <div id="users"></div>
+
+
+      <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+       <script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
+      <script>
+          var socket = io.connect();
+          var $messageForm = $('#send-message');
+          var $messageBox = $('#message');
+          var $chat = $('#chat');
+          var $userNameForm = $('#create-name');
+          var $userName = $('#username');
+
+          $('#users-title').hide();
+
+          $messageForm.on('submit',function(e){
+            e.preventDefault();
+            socket.emit('send message',$messageBox.val());
+            $messageBox.val("");
+          });
+
+          $userNameForm.on('submit',function(e){
+            e.preventDefault();
+            socket.emit('user-name',$('#name').val())
+              $userName.hide();
+              $('#content-wrap').show();
+              $('#users-title').show();
+          })
+
+          socket.on('usernames',function(userNames){
+            append='';
+            for(i=0;i<userNames.length;i++){
+              append += userNames[i] + '<br>';
+            }
+            $('#users').html(append);
+          });
+
+          $('#message').keypress(function(){
+            socket.emit('user-typing',' a user is typing');
+          });
+
+          socket.on('new message',function(data){
+            $chat.append('<em>' + data.name + '</em>' + ': ' + data.msg + '<br></br>');
+          });
+
+          socket.on('new-user',function(msg){
+            $chat.append(msg + '<br></br>');
+          });
+
+           socket.on('leave-chat',function(msg){
+            $chat.append(msg + '<br></br>');
+          });
+
+           socket.on('typing',function(typing){
+            $('#typing').html(typing);
+               $('#send-message').on('submit',function(){
+                 $('#typing').empty();
+              });
+           });
+      </script>
+  </body>
+</html>
