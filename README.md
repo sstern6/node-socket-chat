@@ -1,21 +1,33 @@
-# Node-Socket-Chat
+#Real Time Chat
 
-
-##How to start
+##Installation
 
 I have included a list of fundamental dependecies to help you run the program I have created.
 
 You will need 2 terminal windows open at one time to run the application successfully.
 
--First run npm install to download all of the dependencies I have provided in the packag.json file
+-First run "$ npm install" to download all of the dependencies I have provided in the packag.json file
 
--Then open a new windown in the terminal and run "mongod" at the root of your computer to start the mongo server.
+-First terminal window from root:
+  <code>$ mongod</code>
 
--Finally change directories into the directory you have cloned this repo into, and run app.js
+-Second Terminal Window:
+  <code>$ node app.js</code>
+
+-Finally navigate to <code>localhost:3000</code>
 
 
-##The project
+##Real Time Chat
 
-This is a project for Phase 2 of Week 2 at Dev Bootcamp.  The project was to learn a new technology in 5 days and I choose to work with Node JS, Socket.io, and I also incorporated MongoDB as a stretch challenge.  With the given technologies I built a chatroom that display the author of the message and some small chatroom featrues to understand the capabilities of Node JS with socket.io.
+This is a project for Phase 2 of Week 2 at Dev Bootcamp. Real Time Chat is a chat app that allows users to join chat rooms and communicate real time using Node.js and socket.io.  Users can see when other users are typing, which user sent a specific message, and the list of users on the right side of the chat room.  Upon entrance or exit of the chat room, other users are notofied on the entrance or the exit of the user.
 
+##Technologies
+
+Real Time Chat is built with Node JS for the backend and MongoDB/Mongoose as the database to allow users to create their own private chat rooms.  I used Express.JS as a middleware for the application as well as socket.io.  Socket.io allows users to chat with each other real time as long as they're on the same destination url extension.
+
+##Collaboration
+
+If you would like to run this program, feel free to clone it onto your computer.  Please be advised you must have Mongodb installed on your computer.
+
+##Resources
 
