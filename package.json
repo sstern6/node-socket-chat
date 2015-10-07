@@ -4,7 +4,9 @@
   "private":"true",
   "dependencies":{
     "socket.io":"1.3.7",
-    "express":"4.13.3"
+    "express":"4.13.3",
+    "mongodb":"*",
+    "body-parser":"*",
+    "ejs":"*"
   }
-
 }

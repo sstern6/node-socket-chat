@@ -30,30 +30,26 @@ var chatRoomSchema = mongoose.Schema({
 
 // MODEL
 
-var chatRoom = mongoose.model('Message',chatRoomSchema)
+var chatRoom = mongoose.model('Room',chatRoomSchema)
 
 // ROUTES
 
 app.use(bodyParser());
 
 app.get('/',function(request,response){
-  // response.sendFile(__dirname + '/homepage.html');
   response.render('homepage')
 
 })
 
 app.post('/',function(request,response){
   var newRoom = new chatRoom({chatroom: request.body.roomName});
-
   newRoom.save();
-  // console.log(newRoom)
-  // console.log(newRoom);
+
   response.redirect('/chatroom/'+newRoom.chatroom)
 });
 
 app.get('/chatroom/:name',function(req,res){
   res.render('index',{chatRoomName:req.params.name});
-  // console.log(req.params.name)
 });
 
 
@@ -73,8 +69,6 @@ io.sockets.on('connection',function(socket){
   });
 
   socket.on('send message',function(data){
-    // var newMsg = new Chat({msg: data, username:socket.username});
-    // newMsg.save
     io.sockets.emit('new message',{msg: data, name: socket.username});
   });
 
